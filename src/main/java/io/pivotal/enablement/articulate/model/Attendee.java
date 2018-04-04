@@ -18,18 +18,5 @@ public class Attendee {
 	private String zipCode;
 	private String phoneNumber;
 	private String emailAddress;
-	public void setFirstName(String firstName2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setLastName(String lastName2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setEmailAddress(String emailAddress2) {
-		// TODO Auto-generated method stub
-		
-	}
-		
-
+	
 }
