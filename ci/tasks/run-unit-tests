@@ -17,6 +17,6 @@ cd ../out
 shopt -s dotglob
 mv -f ../articulate-ci-demo/* ./
 git config --global user.email "${git_email}"
-git config --global user.name "${{git_name}}"
+git config --global user.name "${git_name}"
 git status
 git merge --no-edit test/test
