@@ -16,8 +16,8 @@ find .
 cd ../out
 shopt -s dotglob
 mv -f ../articulate-ci-demo/* ./
-git config --global user.email "${git_email}"
-git config --global user.name "${git_name}"
+git config --global user.email "${git-email}"
+git config --global user.name "${git-name}"
 git status
 git add .
 git commit -m "test"
