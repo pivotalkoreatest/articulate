@@ -1,0 +1,16 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: pivotalservices/docker-concourse-cf-tools
+    tag: "latest"
+
+
+inputs:
+- name: carticulate-ci-demo
+- name: current-app-info
+
+run:
+  path: articulate-ci-demo/ci/tasks/update-routes

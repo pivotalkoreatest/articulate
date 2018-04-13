@@ -1,0 +1,10 @@
+---
+applications:
+- name: APPNAME
+  command: node index.js
+#  buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
+  buildpack: nodejs_buildpack
+  instances: 1
+  env:
+    NODE_VERBOSE: true
+    JBP_LOG_LEVEL: DEBUG

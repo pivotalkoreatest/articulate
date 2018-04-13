@@ -1,0 +1,86 @@
+groups:
+- name: main
+  jobs:
+  - unit-tests
+  - deploy-app
+  - promote-new-version
+
+resources:
+- name: articulate-ci-demo
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/myminseok/articulate.git
+- name: PWS
+  type: cf
+  source:
+    api: {{pws-api}}
+    organization: {{pws-organization}}
+    username: {{deploy-username}}
+    password: {{deploy-password}}
+    skip_cert_check: true
+    space: {{pws-space}}
+
+jobs:
+- name: unit-tests
+  serial: true
+  public: true
+  plan:
+  - get: articulate-ci-demo
+    trigger: true
+  - task: run-unit-tests
+    file: articulate-ci-demo/ci/tasks/unit-tests.yml
+
+- name: deploy-app
+  serial: true
+  public: true
+  plan:
+  - get: articulate-ci-demo
+    trigger: true
+    passed:
+      - unit-tests
+  - task: get-current-app-color
+    file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
+    params:
+      PWS_APP_SUFFIX: {{pws-app-suffix}}
+      PWS_API: {{pws-api}}
+      PWS_ORG: {{pws-organization}}
+      PWS_USER: {{deploy-username}}
+      PWS_PWD: {{deploy-password}}
+      PWS_SPACE: {{pws-space}}
+  - task: prepare-app-manifest
+    file: articulate-ci-demo/ci/tasks/app-manifest-prep.yml
+    params:
+      PWS_APP_SUFFIX: {{pws-app-suffix}}
+  - put: PWS
+    params:
+      manifest: app-manifest-output/manifest.yml
+      path: articulate-ci-demo/bgd-app
+
+- name: promote-new-version
+  serial: true
+  public: true
+  plan:
+  - get: articulate-ci-demo
+    trigger: true
+    passed:
+      - load-tests
+  - task: get-current-app-color
+    file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
+    params:
+      PWS_APP_SUFFIX: {{pws-app-suffix}}
+      PWS_API: {{pws-api}}
+      PWS_ORG: {{pws-organization}}
+      PWS_USER: {{deploy-username}}
+      PWS_PWD: {{deploy-password}}
+      PWS_SPACE: {{pws-space}}
+  - task: switch-app-routes
+    file: carticulate-ci-demo/ci/tasks/update-routes.yml
+    params:
+      PWS_APP_SUFFIX: {{pws-app-suffix}}
+      PWS_APP_DOMAIN: {{pws-app-domain}}
+      PWS_API: {{pws-api}}
+      PWS_ORG: {{pws-organization}}
+      PWS_USER: {{deploy-username}}
+      PWS_PWD: {{deploy-password}}
+      PWS_SPACE: {{pws-space}}
