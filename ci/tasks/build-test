@@ -20,7 +20,7 @@ mv -f ../articulate-ci-demo/* ./
 
 git config --global user.email "${git-email}"
 git config --global user.name "${git-name}"
-git pull origin test
+yes | git pull origin test
 git status
 git add .
 git commit -m "[ci skip] artifactory"
