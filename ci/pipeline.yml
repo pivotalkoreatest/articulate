@@ -9,7 +9,7 @@ resources:
 - name: articulate-ci-demo
   type: git
   source:
-    branch: master
+    branch: test
     uri: https://github.com/myminseok/articulate.git
 - name: PCF
   type: cf
