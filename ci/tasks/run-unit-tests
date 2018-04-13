@@ -14,7 +14,7 @@ pwd
 find .
 
 
-cd out
+cd ../out
 shopt -s dotglob
 mv -f ../articulate-ci-demo/* ./
 git config --global user.email "${GIT_EMAIL}"
