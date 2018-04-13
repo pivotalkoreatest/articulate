@@ -11,7 +11,7 @@ inputs:
 - name: articulate-ci-demo
 
 outputs:
-- name: out
+- name: out-repo
 
 run:
   path: /bin/bash
