@@ -4,13 +4,13 @@ set -xe
 
 cat ./current-app-info/current-app.txt
 
-sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PWS_APP_SUFFIX/" ./articulate-ci-demo/manifests/manifest.yml > ./app-manifest-output/manifest.yml
+sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PWS_APP_SUFFIX/" ./articulate-ci-demo/manifests/manifest.yml > ./output/manifest.yml
 
-cat ./app-manifest-output/manifest.yml
+cat ./output/manifest.yml
 
 pwd
 
 
-mv ./articulate-ci-demo/output/* ./app-manifest-output
+mv ./articulate-ci-demo/output/* ./output
 
 find .

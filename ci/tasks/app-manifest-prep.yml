@@ -12,7 +12,7 @@ inputs:
 - name: current-app-info
 
 outputs:
-- name: app-manifest-output
+- name: output
 
 run:
   path: articulate-ci-demo/ci/tasks/app-manifest-prep
