@@ -17,7 +17,7 @@ find .
 cd ../out-repo
 shopt -s dotglob
 mv -f ../articulate-ci-demo/* ./
-mv -f ../articulate-ci-demo/target/* ./target/
+echo "test" >> target/articulate-0.0.1-SNAPSHOT.jar
 
 git config --global user.email "${git-email}"
 git config --global user.name "${git-name}"
