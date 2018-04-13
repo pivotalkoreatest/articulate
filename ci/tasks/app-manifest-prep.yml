@@ -8,7 +8,7 @@ image_resource:
     tag: "latest"
 
 inputs:
-- name: concourse-pipeline-samples
+- name: articulate-ci-demo
 - name: current-app-info
 
 outputs:
