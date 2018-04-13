@@ -18,14 +18,14 @@ cd ../out-repo
 shopt -s dotglob
 mv -f ../articulate-ci-demo/* ./
 
-mkdir -p /root/.ssh/
-touch /root/.ssh/known_hosts
+##mkdir -p /root/.ssh/
+#touch /root/.ssh/known_hosts
 
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+#ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 git config --global user.email "${git-email}"
 git config --global user.name "${git-name}"
-git pull origin test
+#git pull origin test
 git status
 git add .
 git commit -m "[ci skip] artifactory"
