@@ -32,9 +32,8 @@ jobs:
   - task: run-unit-tests
     file: articulate-ci-demo/ci/tasks/unit-tests.yml
   - put: articulate-ci-demo
-    resource: articulate-ci-demo
     params:
-      repository: articulate-ci-demo
+      repository: out
 
 - name: deploy-app
   serial: true
