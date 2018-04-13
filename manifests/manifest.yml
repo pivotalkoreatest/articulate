@@ -1,10 +1,11 @@
 ---
 applications:
 - name: APPNAME
-  command: node index.js
-#  buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
-  buildpack: nodejs_buildpack
+  memory: 1G 
   instances: 1
+  host: articulate
+  path: target/articulate-0.0.1-SNAPSHOT.jar
   env:
-    NODE_VERBOSE: true
-    JBP_LOG_LEVEL: DEBUG
+      JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+  
+
