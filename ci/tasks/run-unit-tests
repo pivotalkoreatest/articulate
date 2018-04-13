@@ -3,8 +3,11 @@
 set -xe
 
 cd articulate-ci-demo
-./mvnw package -Dmaven.test.skip=true -Dmaven.repo.local=../m2/rootfs/opt/m2
+#./mvnw package -Dmaven.test.skip=true -Dmaven.repo.local=../m2/rootfs/opt/m2
 pwd
-ls -al target/
 ls -al ../
-mv target/*.jar ../output/
+ls -al
+cd output
+touch testfile
+pwd
+find .

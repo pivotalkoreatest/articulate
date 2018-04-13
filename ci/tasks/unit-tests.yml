@@ -10,5 +10,8 @@ image_resource:
 inputs:
 - name: articulate-ci-demo
 
+outputs:
+-name: outputs
+
 run:
   path: articulate-ci-demo/ci/tasks/run-unit-tests

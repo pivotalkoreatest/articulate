@@ -33,7 +33,7 @@ jobs:
   - put: repo
     resource: articulate-ci-demo
     params:
-      repository: out
+      repository: output
 - name: deploy-app
   serial: true
   public: true
