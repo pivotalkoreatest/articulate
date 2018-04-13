@@ -11,7 +11,7 @@ inputs:
 - name: articulate-ci-demo
 
 outputs:
-- name: output
+- name: output222
 
 run:
   path: articulate-ci-demo/ci/tasks/run-unit-tests
