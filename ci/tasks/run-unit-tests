@@ -8,8 +8,7 @@ pwd
 find ../../
 ls -al ../
 ls -al
-cd output
-touch testfile
+touch output/testfile
 pwd
 find .
 
