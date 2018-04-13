@@ -30,8 +30,7 @@ jobs:
     trigger: true
   - task: run-unit-tests
     file: articulate-ci-demo/ci/tasks/unit-tests.yml
-  - put: repo
-    resource: articulate-ci-demo
+  - put: articulate-ci-demo
     params:
       repository: output
 - name: deploy-app
