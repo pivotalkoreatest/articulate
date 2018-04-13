@@ -8,8 +8,6 @@ sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PWS_APP_SUFFIX/" ./articu
 
 cat ./output/manifest.yml
 
-pwd
 
 mv ./articulate-ci-demo/output/* ./output
 
-find .
