@@ -59,7 +59,7 @@ jobs:
   - put: PCF
     params:
       manifest: app-manifest-output/manifest.yml
-      path: output/articulate-0.0.1-SNAPSHOT.jar
+      path: app-manifest-output/articulate-0.0.1-SNAPSHOT.jar
 
 - name: promote-new-version
   serial: true

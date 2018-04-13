@@ -10,8 +10,7 @@ cat ./app-manifest-output/manifest.yml
 
 pwd
 
-mkdir -p ../put/output/
-mv ./output/* ../put/output
 
-find ../../
+mv ./articulate-ci-demo/output/* ../app-manifest-output/output
 
+find .
