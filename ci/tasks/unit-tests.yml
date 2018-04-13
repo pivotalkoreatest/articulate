@@ -5,13 +5,13 @@ image_resource:
   type: docker-image
   source:
     repository: java
-    tag: 8-jdk-alpine
+    tag: "8"
 
 inputs:
 - name: articulate-ci-demo
 
 outputs:
-- name: output
+- name: outputs
 
 run:
   path: articulate-ci-demo/ci/tasks/run-unit-tests
