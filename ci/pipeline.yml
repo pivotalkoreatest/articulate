@@ -23,26 +23,26 @@ resources:
     space: {{pws-space}}
 
 jobs:
-- name: unit-tests
+- name: build-test
   serial: true
   public: true
   plan:
   - get: articulate-ci-demo
     trigger: true
-  - task: run-unit-tests
-    file: articulate-ci-demo/ci/tasks/unit-tests.yml
+  - task: build-test
+    file: articulate-ci-demo/ci/tasks/build-test.yml
   - put: articulate-ci-demo
     params:
       repository: out-repo
 
-- name: deploy-app
+- name: green-deploy-app
   serial: true
   public: true
   plan:
   - get: articulate-ci-demo
     trigger: true
     passed:
-      - unit-tests
+      - build-test
   - task: get-current-app-color
     file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
     params:
@@ -59,16 +59,16 @@ jobs:
   - put: PCF
     params:
       manifest: output/manifest.yml
-      path: output/articulate-0.0.1-SNAPSHOT.jar
+      path: output/articulate.jar
 
-- name: promote-new-version
+- name: switch-app-routes-green
   serial: true
   public: true
   plan:
   - get: articulate-ci-demo
     trigger: true
     passed:
-      - deploy-app
+      - green-deploy-app
   - task: get-current-app-color
     file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
     params:

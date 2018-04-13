@@ -10,7 +10,6 @@ cat ./output/manifest.yml
 
 pwd
 
-
 mv ./articulate-ci-demo/output/* ./output
 
 find .
