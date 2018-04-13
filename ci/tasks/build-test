@@ -18,6 +18,8 @@ cd ../out-repo
 shopt -s dotglob
 mv -f ../articulate-ci-demo/* ./
 
+touch /root/.ssh/known_hosts
+
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 git config --global user.email "${git-email}"
