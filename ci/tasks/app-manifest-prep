@@ -11,6 +11,6 @@ cat ./app-manifest-output/manifest.yml
 pwd
 
 
-mv ./articulate-ci-demo/output/* ../app-manifest-output/output
+mv ./articulate-ci-demo/output/* ./app-manifest-output
 
 find .
