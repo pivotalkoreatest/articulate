@@ -8,7 +8,7 @@ pwd
 find ../../
 ls -al ../
 ls -al
-touch output/testfilexxx
+echo "test" >> output/testfile
 pwd
 find .
 
