@@ -28,4 +28,4 @@ git config --global user.name "${git-name}"
 #git pull origin test
 git status
 git add .
-git commit -m "[ci skip] artifactory"
+git commit -m "[ci skip]"
