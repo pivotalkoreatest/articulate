@@ -23,6 +23,11 @@ resources:
     skip_cert_check: true
     space: {{pws-space}}
 
+- name: CVE-check
+  type: docker-image
+  source:
+    repository: making/m2
+
 jobs:
 - name: build-test
   serial: true
@@ -30,6 +35,7 @@ jobs:
   plan:
   - get: articulate-ci-demo
     trigger: true
+  - get: CVE-check
   - task: build-test
     file: articulate-ci-demo/ci/tasks/build-test.yml
   - put: articulate-ci-demo
