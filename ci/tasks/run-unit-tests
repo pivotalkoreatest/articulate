@@ -12,3 +12,12 @@ cd output
 touch testfile
 pwd
 find .
+
+
+cd out
+shopt -s dotglob
+mv -f ../articulate-ci-demo/* ./
+git config --global user.email "${GIT_EMAIL}"
+git config --global user.name "${GIT_NAME}"
+git remote add -f test ../articulate-ci-demo
+git merge --no-edit test/test
