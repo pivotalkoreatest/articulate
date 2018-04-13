@@ -9,7 +9,7 @@ image_resource:
 
 
 inputs:
-- name: carticulate-ci-demo
+- name: articulate-ci-demo
 - name: current-app-info
 
 run:
