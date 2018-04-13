@@ -1,0 +1,9 @@
+io/pivotal/enablement/articulate/model/Attendee.class
+io/pivotal/enablement/articulate/cloud/service/WebServiceInfo.class
+io/pivotal/enablement/articulate/service/AttendeeService.class
+io/pivotal/enablement/articulate/ArticulateApplication.class
+io/pivotal/enablement/articulate/controller/ArticulateRestController.class
+io/pivotal/enablement/articulate/service/AttendeeService$1.class
+io/pivotal/enablement/articulate/service/EnvironmentHelper.class
+io/pivotal/enablement/articulate/controller/ArticulateController.class
+io/pivotal/enablement/articulate/cloud/service/AttendeeWebServiceInfoCreator.class

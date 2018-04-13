@@ -1,0 +1,20 @@
+logging:
+  level:
+    io:
+      pivotal: INFO
+
+spring:
+  application:
+    name: articulate
+
+articulate:
+  attendee-service:
+    uri: https://attendee-service-mkim.cfapps.io/attendees
+
+# Using macros that are replaced by maven build
+info:
+  build:
+    artifact: articulate
+    name: articulate
+    description: Articulate the value of Cloud Foundry
+    version: 0.0.1-SNAPSHOT
