@@ -2,6 +2,5 @@
 
 set -xe
 
-cd articulate-ci-demo/bgd-app
-npm install
-mocha tests --recursive
+cd articulate-ci-demo
+mvn clean test

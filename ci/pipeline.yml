@@ -11,7 +11,7 @@ resources:
   source:
     branch: master
     uri: https://github.com/myminseok/articulate.git
-- name: PWS
+- name: PCF
   type: cf
   source:
     api: {{pws-api}}
@@ -52,10 +52,10 @@ jobs:
     file: articulate-ci-demo/ci/tasks/app-manifest-prep.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
-  - put: PWS
+  - put: PCF
     params:
       manifest: app-manifest-output/manifest.yml
-      path: articulate-ci-demo/bgd-app
+      path: articulate-ci-demo
 
 - name: promote-new-version
   serial: true
@@ -64,7 +64,7 @@ jobs:
   - get: articulate-ci-demo
     trigger: true
     passed:
-      - load-tests
+      - deploy-app
   - task: get-current-app-color
     file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
     params:
