@@ -22,4 +22,4 @@ git config --global user.email "${git-email}"
 git config --global user.name "${git-name}"
 git status
 git add .
-git commit -m "test"
+git commit -m "[ci skip] artifactory"

@@ -12,6 +12,7 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
+    disable_ci_skip: "[ci skip] artifactory"
 - name: PCF
   type: cf
   source:
@@ -40,7 +41,7 @@ jobs:
   public: true
   plan:
   - get: articulate-ci-demo
-    trigger: false
+    trigger: false  
     passed:
       - build-test
   - task: get-current-app-color
