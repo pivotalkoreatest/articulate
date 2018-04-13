@@ -9,5 +9,7 @@ sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PWS_APP_SUFFIX/" ./articu
 cat ./app-manifest-output/manifest.yml
 
 pwd
-find .
+
+mkdir -p ../put/output/
+mv ./output/* ../put/output
 
