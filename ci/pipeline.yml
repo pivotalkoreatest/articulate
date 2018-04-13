@@ -11,6 +11,7 @@ resources:
   source:
     branch: master
     uri: https://github.com/myminseok/articulate.git
+    private_key: {{github-private-key}}
 - name: PCF
   type: cf
   source:
@@ -30,6 +31,10 @@ jobs:
     trigger: true
   - task: run-unit-tests
     file: articulate-ci-demo/ci/tasks/unit-tests.yml
+  - put: repo
+    resource: articulate-ci-demo
+    params:
+      repository: output
 
 - name: deploy-app
   serial: true
