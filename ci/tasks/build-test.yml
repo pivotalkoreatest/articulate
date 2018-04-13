@@ -16,4 +16,4 @@ outputs:
 run:
   path: /bin/bash
   args: 
-    - articulate-ci-demo/ci/tasks/run-unit-tests
+    - articulate-ci-demo/ci/tasks/build-test

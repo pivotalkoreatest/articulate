@@ -1,8 +1,8 @@
 groups:
 - name: main
   jobs:
-  - unit-tests
-  - deploy-app
+  - build-test
+  - deploy-new-app
   - promote-new-version
 
 resources:
@@ -35,7 +35,7 @@ jobs:
     params:
       repository: out-repo
 
-- name: green-deploy-app
+- name: deploy-new-app
   serial: true
   public: true
   plan:
@@ -61,14 +61,14 @@ jobs:
       manifest: output/manifest.yml
       path: output/articulate.jar
 
-- name: switch-app-routes-green
+- name: promote-new-version
   serial: true
   public: true
   plan:
   - get: articulate-ci-demo
     trigger: true
     passed:
-      - green-deploy-app
+      - deploy-new-app
   - task: get-current-app-color
     file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
     params:
