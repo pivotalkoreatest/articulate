@@ -13,3 +13,5 @@ pwd
 mkdir -p ../put/output/
 mv ./output/* ../put/output
 
+find ../../
+
