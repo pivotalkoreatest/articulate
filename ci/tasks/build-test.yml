@@ -8,7 +8,7 @@ image_resource:
     tag: "8"
 
 inputs:
-- name: articulate-ci-demo
+- name: demo-out-repo
 
 outputs:
 - name: out-repo

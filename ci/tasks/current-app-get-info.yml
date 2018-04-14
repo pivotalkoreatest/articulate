@@ -8,10 +8,10 @@ image_resource:
     tag: "latest"
 
 inputs:
-- name: articulate-ci-demo
+- name: demo-out-repo
 
 outputs:
 - name: current-app-info
 
 run:
-  path: articulate-ci-demo/ci/tasks/current-app-get-info
+  path: demo-out-repo/ci/tasks/current-app-get-info

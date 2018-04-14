@@ -2,7 +2,7 @@
 
 set -xe
 
-cd articulate-ci-demo
+cd demo-out-repo
 #./mvnw package -Dmaven.test.skip=true -Dmaven.repo.local=../m2/rootfs/opt/m2
 pwd
 find ../../
@@ -16,7 +16,7 @@ find .
 
 cd ../out-repo
 shopt -s dotglob
-mv -f ../articulate-ci-demo/* ./
+mv -f ../demo-out-repo/* ./
 
 ##mkdir -p /root/.ssh/
 #touch /root/.ssh/known_hosts

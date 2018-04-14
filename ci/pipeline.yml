@@ -6,22 +6,20 @@ groups:
   - promote-new-version
 
 resources:
-- name: articulate-ci-demo
+
+- name: demo-repo
   type: git
   source:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    ignore_paths:
-      - output/**
-- name: articulate-ci-demo-trigger
+- name: demo-out-repo
   type: git
   source:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    ignore_paths:
-      - output/**
+    merge: true
 - name: PCF
   type: cf
   source:
@@ -43,14 +41,15 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: articulate-ci-demo
-    trigger: false
-  - get: articulate-ci-demo-trigger
+
+  - get: demo-repo
     trigger: true
+  - get: demo-out-repo
+    trigger: false
   - get: CVE-check
   - task: build-test
     file: articulate-ci-demo/ci/tasks/build-test.yml
-  - put: articulate-ci-demo
+  - put: demo-out-repo
     params:
       repository: out-repo
 
@@ -58,7 +57,7 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: articulate-ci-demo
+  - get: demo-out-repo
     trigger: false  
     passed:
       - build-test
@@ -84,7 +83,7 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: articulate-ci-demo
+  - get: demo-out-repo
     trigger: false
     passed:
       - deploy-new-app
