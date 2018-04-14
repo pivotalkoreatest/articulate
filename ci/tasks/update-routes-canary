@@ -15,7 +15,7 @@ cf routes
 
 export PWS_DOMAIN_NAME=$PWS_APP_DOMAIN
 export MAIN_ROUTE_HOSTNAME=canary-main-$PWS_APP_SUFFIX
-export MAIN_APP_HOSTNAME=canary-$PWS_APP_SUFFIX
+export MAIN_APP_HOSTNAME=canary-main-$PWS_APP_SUFFIX
 export STAGING_ROUTE_HOSTNAME=canary-staging-$PWS_APP_SUFFIX
 export STAGING_APP_HOSTNAME=canary-staging-$PWS_APP_SUFFIX
 export STAGING_APP_INSTANCE_COUNT=$(cat ./current-app-info/next-app-instance-count.txt)
@@ -32,9 +32,8 @@ cf map-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTN
 cf routes
 
 echo "Removing previous main app route that pointed to $MAIN_APP_HOSTNAME instance"
-set +e
-app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | grep "canary-main" | wc -l)
-echo "app_exist $app_exist"
+set -e
+app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | wc -l)
 if [ $app_exist -eq 1 ]
 then
   cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNAME
@@ -44,9 +43,8 @@ fi
 
 
 echo "rename app $STAGING_APP_HOSTNAME to #MAIN_APP_HOSTNAME"
-set +e
+set -e
 app_exist=$(cf apps | grep "$STAGING_APP_HOSTNAME" | wc -l)
-echo "app_exist $app_exist"
 if [ $app_exist -eq 1 ]
 then
   cf unmap-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
