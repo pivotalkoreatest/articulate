@@ -13,7 +13,7 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    merge: true
+
 
 - name: demo-out-repo
   type: git
@@ -21,7 +21,8 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    merge: true
+    rebase: true
+    
 - name: PCF
   type: cf
   source:
