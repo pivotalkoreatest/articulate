@@ -12,7 +12,6 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    disable_ci_skip: false
 - name: PCF
   type: cf
   source:
