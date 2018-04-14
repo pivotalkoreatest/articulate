@@ -13,7 +13,7 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    check_every: 10s # for demo
+  check_every: 10s # for demo
 - name: demo-out-repo
   type: git
   source:
@@ -33,7 +33,6 @@ resources:
   type: docker-image
   source:
     repository: making/m2
-
 
 jobs:
 - name: build-test
@@ -57,11 +56,11 @@ jobs:
   public: true
   plan:
   - get: demo-out-repo
-    trigger: false  
+    trigger: true  
     passed:
       - build-test
   - task: get-current-app-color
-    file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
+    file: demo-out-repo/ci/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -70,7 +69,7 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: prepare-app-manifest
-    file: articulate-ci-demo/ci/tasks/app-manifest-prep.yml
+    file: demo-out-repo/ci/tasks/app-manifest-prep.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
   - put: PCF
@@ -83,11 +82,11 @@ jobs:
   public: true
   plan:
   - get: demo-out-repo
-    trigger: false
+    trigger: true
     passed:
       - deploy-new-app
   - task: get-current-app-color
-    file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
+    file: demo-out-repo/ci/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -96,7 +95,7 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: switch-app-routes
-    file: articulate-ci-demo/ci/tasks/update-routes.yml
+    file: demo-out-repo/ci/tasks/update-routes.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_APP_DOMAIN: {{pws-app-domain}}
