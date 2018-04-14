@@ -33,20 +33,23 @@ cf routes
 
 echo "Removing previous main app route that pointed to $MAIN_APP_HOSTNAME instance"
 set +e
-main_app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | grep "canary-main" | wc -l)
-echo "main_app_exist $main_app_exist"
-if [ $main_app_exist -eq 1 ]
+app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | grep "canary-main" | wc -l)
+echo "app_exist $app_exist"
+if [ $app_exist -eq 1 ]
 then
   cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNAME
   cf rename $MAIN_APP_HOSTNAME $MAIN_APP_HOSTNAME-vernarable
 fi
-set -e
-echo "Routes updated"
+
 
 echo "rename app $STAGING_APP_HOSTNAME to #MAIN_APP_HOSTNAME"
 set +e
-cf rename $STAGING_APP_HOSTNAME $MAIN_APP_HOSTNAME
-echo "App name updated"
+app_exist=$(cf apps | grep "$STAGING_APP_HOSTNAME" | wc -l)
+echo "app_exist $app_exist"
+if [ $app_exist -eq 1 ]
+then
+  cf rename $STAGING_APP_HOSTNAME $MAIN_APP_HOSTNAME
+fi
 
 set -e
 cf routes
