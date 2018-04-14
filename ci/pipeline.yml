@@ -35,12 +35,12 @@ resources:
   source:
     repository: making/m2
 
+
 jobs:
 - name: build-test
   serial: true
   public: true
   plan:
-
   - get: demo-repo
     trigger: true
   - get: demo-out-repo
