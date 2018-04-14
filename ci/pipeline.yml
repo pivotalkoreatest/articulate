@@ -13,14 +13,12 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-
 - name: demo-out-repo
   type: git
   source:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-
 - name: PCF
   type: cf
   source:
@@ -30,22 +28,20 @@ resources:
     password: {{deploy-password}}
     skip_cert_check: true
     space: {{pws-space}}
-
 - name: CVE-check
   type: docker-image
   source:
     repository: making/m2
-
 
 jobs:
 - name: build-test
   serial: true
   public: true
   plan:
-  #- get: demo-repo
-  #  trigger: true
-  - get: demo-out-repo
+  - get: demo-repo
     trigger: true
+  - get: demo-out-repo
+    trigger: false
   - get: CVE-check
   - task: build-test
     file: demo-out-repo/ci/tasks/build-test.yml
@@ -53,7 +49,7 @@ jobs:
     params:
       repository: out-repo
       merge: true
-      force: true
+      #force: true
 - name: deploy-new-app
   serial: true
   public: true
