@@ -20,8 +20,6 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    merge: true
-    force: true
 
 - name: PCF
   type: cf
@@ -38,6 +36,7 @@ resources:
   source:
     repository: making/m2
 
+
 jobs:
 - name: build-test
   serial: true
@@ -53,7 +52,8 @@ jobs:
   - put: demo-out-repo
     params:
       repository: out-repo
-
+      merge: true
+      force: true
 - name: deploy-new-app
   serial: true
   public: true
