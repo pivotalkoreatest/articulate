@@ -42,10 +42,10 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: demo-repo
-    trigger: true
+  #- get: demo-repo
+  #  trigger: true
   - get: demo-out-repo
-    trigger: false
+    trigger: true
   - get: CVE-check
   - task: build-test
     file: demo-out-repo/ci/tasks/build-test.yml
