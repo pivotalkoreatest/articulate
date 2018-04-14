@@ -36,9 +36,10 @@ set -e
 app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | wc -l)
 if [ $app_exist -eq 1 ]
 then
+  cf rename $MAIN_APP_HOSTNAME $MAIN_APP_HOSTNAME-vernarable
   cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNAME
   cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
-  cf rename $MAIN_APP_HOSTNAME $MAIN_APP_HOSTNAME-vernarable
+ 
 fi
 
 
@@ -47,9 +48,11 @@ set -e
 app_exist=$(cf apps | grep "$STAGING_APP_HOSTNAME" | wc -l)
 if [ $app_exist -eq 1 ]
 then
-  cf unmap-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
   cf rename $STAGING_APP_HOSTNAME $MAIN_APP_HOSTNAME
+  cf unmap-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
 fi
 
 set -e
-cf routes
+
+cf apps
+
