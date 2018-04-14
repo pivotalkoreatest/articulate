@@ -15,7 +15,6 @@ resources:
     private_key: {{github-private-key}}
 
 
-
 - name: demo-out-repo
   type: git
   source:
