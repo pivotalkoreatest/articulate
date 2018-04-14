@@ -16,43 +16,37 @@ cf routes
 export PWS_DOMAIN_NAME=$PWS_APP_DOMAIN
 export MAIN_ROUTE_HOSTNAME=canary-main-$PWS_APP_SUFFIX
 export MAIN_APP_HOSTNAME=canary-main-$PWS_APP_SUFFIX
+
 export STAGING_ROUTE_HOSTNAME=canary-staging-$PWS_APP_SUFFIX
 export STAGING_APP_HOSTNAME=canary-staging-$PWS_APP_SUFFIX
 export STAGING_APP_INSTANCE_COUNT=$(cat ./current-app-info/next-app-instance-count.txt)
+
+export VERNARABLE_APP_HOSTNAME=canary-main-$PWS_APP_SUFFIX-vernarable
 
 echo "scaling staging instance to $STAGING_APP_INSTANCE_COUNT "
 for (( i=2 ;i < $STAGING_APP_INSTANCE_COUNT ; i++ )) {
  cf scale $STAGING_APP_HOSTNAME -i $i
 }
 
+vernarable_app_exist=$(cf apps | grep "$VERNARABLE_APP_HOSTNAME" | wc -l)
+if [ $vernarable_app_exist -eq 1 ]
+then
+	cf delete $VERNARABLE_APP_HOSTNAME -f
+fi
 
-echo "Mapping main app route to point to $STAGING_APP_HOSTNAME instance"
+
+echo "Mapping route and rename"
+main_app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | wc -l)
+staging_app_exist=$(cf apps | grep "$STAGING_APP_HOSTNAME" | wc -l)
+
+if [ $main_app_exist -eq 1 ] || [ $staging_app_exist -eq 1 ] then
 cf map-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNAME
-
+cf unmap-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
+cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNAME
+cf rename $MAIN_APP_HOSTNAME $MAIN_APP_HOSTNAME-vernarable
+cf rename $STAGING_APP_HOSTNAME $MAIN_APP_HOSTNAME
+fi
+echo "Mapping route and rename done."
 cf routes
-
-echo "Removing previous main app route that pointed to $MAIN_APP_HOSTNAME instance"
-set -e
-app_exist=$(cf apps | grep "$MAIN_APP_HOSTNAME" | wc -l)
-if [ $app_exist -eq 1 ]
-then
-  cf rename $MAIN_APP_HOSTNAME $MAIN_APP_HOSTNAME-vernarable
-  cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNAME
-  cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
- 
-fi
-
-
-echo "rename app $STAGING_APP_HOSTNAME to #MAIN_APP_HOSTNAME"
-set -e
-app_exist=$(cf apps | grep "$STAGING_APP_HOSTNAME" | wc -l)
-if [ $app_exist -eq 1 ]
-then
-  cf rename $STAGING_APP_HOSTNAME $MAIN_APP_HOSTNAME
-  cf unmap-route $STAGING_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $STAGING_ROUTE_HOSTNAME
-fi
-
-set -e
-
 cf apps
 
