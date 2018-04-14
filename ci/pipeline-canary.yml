@@ -49,8 +49,8 @@ jobs:
   - put: demo-out-repo
     params:
       repository: out-repo
-      merge: true
-      #force: true
+      rebase: true
+      force: true
 - name: deploy-new-app
   serial: true
   public: true
