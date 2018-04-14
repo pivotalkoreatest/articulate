@@ -61,7 +61,7 @@ jobs:
     trigger: true  
     passed:
       - build-test
-  - task: get-current-app-color
+  - task: get-current-app-info
     file: demo-out-repo/ci/tasks/current-app-get-info-canary.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
@@ -71,7 +71,7 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
 
-  - task: prepare-app-manifest
+  - task: prepare-app-manifest-canary
     file: demo-out-repo/ci/tasks/app-manifest-prep-canary.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}

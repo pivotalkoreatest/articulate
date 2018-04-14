@@ -18,8 +18,9 @@ main_instance_count=1
 if [ $main_app_exist -eq 1 ]
 then
  main_instance_count=$(cf apps | grep "canary-" | grep "canary-main" | awk -F"/" '{print $2} ' |awk '{print $1}')
- echo $main_instance_count > ./current-app-info/next-app-instance-count.txt
 fi
+
+echo $main_instance_count > ./current-app-info/next-app-instance-count.txt
 set -xe
 echo "New version of app to be deployed to instance-count $(cat ./current-app-info/next-app-instance-count.txt)"
 
