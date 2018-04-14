@@ -16,4 +16,4 @@ outputs:
 run:
   path: /bin/bash
   args: 
-    - articulate-ci-demo/ci/tasks/build-test
+    - demo-out-repo/ci/tasks/build-test
