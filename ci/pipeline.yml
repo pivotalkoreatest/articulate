@@ -21,8 +21,9 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
-    rebase: true
-    
+    merge: true
+    force: true
+
 - name: PCF
   type: cf
   source:
