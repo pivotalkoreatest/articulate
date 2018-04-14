@@ -13,8 +13,8 @@ echo "test" >> output/articulate-0.0.1-SNAPSHOT.jar
 pwd
 find .
 
-#rm -rf ../out-repo
-#git clone demo-out-repo ../out-repo
+rm -rf ../out-repo/*
+git clone demo-out-repo ../out-repo
 
 cd ../out-repo
 shopt -s dotglob
