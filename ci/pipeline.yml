@@ -12,6 +12,16 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
+    ignore_paths:
+      - output/**
+- name: articulate-ci-demo-trigger
+  type: git
+  source:
+    branch: test
+    uri: git@github.com:myminseok/articulate.git
+    private_key: {{github-private-key}}
+    ignore_paths:
+      - output/**
 - name: PCF
   type: cf
   source:
@@ -33,6 +43,8 @@ jobs:
   public: true
   plan:
   - get: articulate-ci-demo
+    trigger: false
+  - get: articulate-ci-demo-trigger
     trigger: true
   - get: CVE-check
   - task: build-test
