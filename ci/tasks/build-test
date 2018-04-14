@@ -9,7 +9,7 @@ cd ../out-repo
 shopt -s dotglob
 
 mv -f ../demo-out-repo/* ./
-mv target/*.jar ../out-repo/demo.jar
+mv target/*.jar ../out-repo/output/demo.jar
 
 
 
@@ -18,4 +18,4 @@ git config --global user.name "${git-name}"
 
 git status
 git add .
-git commit -m "[ci skip]"
+git commit -m "[ci skip] pushing jar for demo"
