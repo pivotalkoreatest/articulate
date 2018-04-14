@@ -57,7 +57,7 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: demo-out-repo
+  - get: demo-repo
     trigger: true  
     passed:
       - build-test
@@ -84,7 +84,7 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: demo-out-repo
+  - get: demo-repo
     trigger: false
     passed:
       - deploy-new-app
