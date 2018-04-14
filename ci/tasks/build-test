@@ -11,7 +11,7 @@ shopt -s dotglob
 mv -f ../demo-out-repo/* ./
 ls -al ./target
 mkdir -p output
-mv ../demo-out-repo/target/*.jar ../out-repo/output/demo.jar
+mv ./target/*.jar ./output/demo.jar
 
 
 
