@@ -3,34 +3,18 @@
 set -xe
 
 cd demo-out-repo
-#./mvnw package -Dmaven.test.skip=true -Dmaven.repo.local=../m2/rootfs/opt/m2
-pwd
-find ../../
-ls -al ../
-ls -al
-mkdir -p target
-echo "test" >> output/articulate-0.0.1-SNAPSHOT.jar
-pwd
-find .
-
-##rm -rf ../out-repo/*
-#git clone demo-out-repo ../out-repo
+./mvnw clean package
 
 cd ../out-repo
 shopt -s dotglob
+
 mv -f ../demo-out-repo/* ./
+mv target/*.jar ../out-repo/demo.jar
 
-##mkdir -p /root/.ssh/
-#touch /root/.ssh/known_hosts
 
-#ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 git config --global user.email "${git-email}"
 git config --global user.name "${git-name}"
-#git pull origin test
-
-
-
 
 git status
 git add .

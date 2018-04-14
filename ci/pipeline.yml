@@ -75,7 +75,7 @@ jobs:
   - put: PCF
     params:
       manifest: output/manifest.yml
-      path: output/articulate.jar
+      path: output/demo.jar
 
 - name: promote-new-version
   serial: true
