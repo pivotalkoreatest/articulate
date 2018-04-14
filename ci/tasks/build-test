@@ -4,7 +4,7 @@ set -xe
 
 cd demo-out-repo
 #./mvnw clean package
-./mvnw -Dmaven.repo.local=/app/repository clean package
+./mvnw -Dmaven.repo.local=/app/m2 clean package
 
 cd ../out-repo
 shopt -s dotglob
