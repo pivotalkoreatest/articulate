@@ -9,8 +9,8 @@ image_resource:
 
 
 inputs:
-- name: demo-out-repo
+- name: demo-repo
 - name: current-app-info
 
 run:
-  path: demo-out-repo/ci/tasks/update-routes-canary
+  path: demo-repo/ci/tasks/update-routes-canary

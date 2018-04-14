@@ -62,7 +62,7 @@ jobs:
     passed:
       - build-test
   - task: get-current-app-info
-    file: demo-out-repo/ci/tasks/current-app-get-info-canary.yml
+    file: demo-repo/ci/tasks/current-app-get-info-canary.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -72,7 +72,7 @@ jobs:
       PWS_SPACE: {{pws-space}}
 
   - task: prepare-app-manifest-canary
-    file: demo-out-repo/ci/tasks/app-manifest-prep-canary.yml
+    file: demo-repo/ci/tasks/app-manifest-prep-canary.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
   - put: PCF
@@ -89,7 +89,7 @@ jobs:
     passed:
       - deploy-new-app
   - task: get-current-app-info-canary
-    file: demo-out-repo/ci/tasks/current-app-get-info-canary.yml
+    file: demo-repo/ci/tasks/current-app-get-info-canary.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -100,7 +100,7 @@ jobs:
  
 
   - task: switch-app-routes
-    file: demo-out-repo/ci/tasks/update-routes-canary.yml
+    file: demo-repo/ci/tasks/update-routes-canary.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_APP_DOMAIN: {{pws-app-domain}}
