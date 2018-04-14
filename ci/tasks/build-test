@@ -9,7 +9,9 @@ cd ../out-repo
 shopt -s dotglob
 
 mv -f ../demo-out-repo/* ./
-mv target/*.jar ../out-repo/output/demo.jar
+ls -al ./target
+mkdir -p output
+mv ../demo-out-repo/target/*.jar ../out-repo/output/demo.jar
 
 
 
