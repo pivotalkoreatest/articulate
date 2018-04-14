@@ -9,8 +9,8 @@ image_resource:
 
 
 inputs:
-- name: carticulate-ci-demo
+- name: demo-out-repo
 - name: current-app-info
 
 run:
-  path: articulate-ci-demo/ci/tasks/update-routes
+  path: demo-out-repo/ci/tasks/update-routes

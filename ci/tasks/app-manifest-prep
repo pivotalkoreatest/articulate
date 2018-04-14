@@ -4,10 +4,10 @@ set -xe
 
 cat ./current-app-info/current-app.txt
 
-sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PWS_APP_SUFFIX/" ./articulate-ci-demo/manifests/manifest.yml > ./app-manifest-output/manifest.yml
+sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PWS_APP_SUFFIX/" ./demo-out-repo/manifests/manifest.yml > ./output/manifest.yml
 
-cat ./app-manifest-output/manifest.yml
+cat ./output/manifest.yml
 
-echo "current:@@@@@"
-pwd
+
+mv ./demo-out-repo/output/* ./output
 

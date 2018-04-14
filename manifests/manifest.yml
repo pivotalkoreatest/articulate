@@ -3,8 +3,7 @@ applications:
 - name: APPNAME
   memory: 1G 
   instances: 1
-  host: blue-green
-  path: target/articulate-0.0.1-SNAPSHOT.jar
+  buildpack: java_buildpack_offline 
   env:
       JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
   

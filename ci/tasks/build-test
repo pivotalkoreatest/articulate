@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -xe
+
+cd demo-out-repo
+./mvnw clean package
+
+cd ../out-repo
+shopt -s dotglob
+
+mv -f ../demo-out-repo/* ./
+ls -al ./target
+mkdir -p output
+mv ./target/*.jar ./output/demo.jar
+
+
+
+git config --global user.email "${git-email}"
+git config --global user.name "${git-name}"
+
+git status
+git add .
+git commit -m "[ci skip] pushing jar for demo"

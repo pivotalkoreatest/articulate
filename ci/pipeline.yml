@@ -1,16 +1,24 @@
 groups:
 - name: main
   jobs:
-  - unit-tests
-  - deploy-app
+  - build-test
+  - deploy-new-app
   - promote-new-version
 
 resources:
-- name: articulate-ci-demo
+
+- name: demo-repo
   type: git
   source:
-    branch: master
-    uri: https://github.com/myminseok/articulate.git
+    branch: test
+    uri: git@github.com:myminseok/articulate.git
+    private_key: {{github-private-key}}
+  check_every: 10s # for demo
+- name: demo-out-repo
+  type: git
+  source:
+    branch: test
+    uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
 - name: PCF
   type: cf
@@ -21,28 +29,38 @@ resources:
     password: {{deploy-password}}
     skip_cert_check: true
     space: {{pws-space}}
+- name: CVE-check
+  type: docker-image
+  source:
+    repository: making/m2
 
 jobs:
-- name: unit-tests
+- name: build-test
   serial: true
   public: true
   plan:
-  - get: articulate-ci-demo
+  - get: demo-repo
     trigger: true
-  - task: run-unit-tests
-    file: articulate-ci-demo/ci/tasks/unit-tests.yml
-
-
-- name: deploy-app
+  - get: demo-out-repo
+    trigger: false
+  - get: CVE-check
+  - task: build-test
+    file: demo-out-repo/ci/tasks/build-test.yml
+  - put: demo-out-repo
+    params:
+      repository: out-repo
+      merge: true
+      #force: true
+- name: deploy-new-app
   serial: true
   public: true
   plan:
-  - get: articulate-ci-demo
-    trigger: true
+  - get: demo-out-repo
+    trigger: false  
     passed:
-      - unit-tests
+      - build-test
   - task: get-current-app-color
-    file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
+    file: demo-out-repo/ci/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -51,24 +69,24 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: prepare-app-manifest
-    file: articulate-ci-demo/ci/tasks/app-manifest-prep.yml
+    file: demo-out-repo/ci/tasks/app-manifest-prep.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
   - put: PCF
     params:
-      manifest: app-manifest-output/manifest.yml
-      path: articulate-ci-demo
+      manifest: output/manifest.yml
+      path: output/demo.jar
 
 - name: promote-new-version
   serial: true
   public: true
   plan:
-  - get: articulate-ci-demo
-    trigger: true
+  - get: demo-out-repo
+    trigger: false
     passed:
-      - deploy-app
+      - deploy-new-app
   - task: get-current-app-color
-    file: articulate-ci-demo/ci/tasks/current-app-get-info.yml
+    file: demo-out-repo/ci/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -77,7 +95,7 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: switch-app-routes
-    file: articulate-ci-demo/ci/tasks/update-routes.yml
+    file: demo-out-repo/ci/tasks/update-routes.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_APP_DOMAIN: {{pws-app-domain}}
