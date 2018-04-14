@@ -15,8 +15,7 @@ shopt -s dotglob
 mv -f ../demo-out-repo/* ./
 ls -al ./target
 mkdir -p output
-mv ./target/*.jar ./output/demo.jar
-
+mv ./target/*.jar ./output/$(BUILD_JAR_NAME)
 
 
 git config --global user.email "${git-email}"

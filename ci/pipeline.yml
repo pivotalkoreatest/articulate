@@ -46,11 +46,13 @@ jobs:
   - get: CVE-check
   - task: build-test
     file: demo-out-repo/ci/tasks/build-test.yml
+    params:
+      BUILD_JAR_NAME: demo.jar
   - put: demo-out-repo
     params:
       repository: out-repo
       rebase: true
-      force: true
+      #force: true
 - name: deploy-new-app
   serial: true
   public: true
@@ -82,7 +84,7 @@ jobs:
   public: true
   plan:
   - get: demo-out-repo
-    trigger: false
+    trigger: true
     passed:
       - deploy-new-app
   - task: get-current-app-color

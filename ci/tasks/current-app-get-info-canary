@@ -13,27 +13,11 @@ cf login -u $PWS_USER -p $PWS_PWD -o "$PWS_ORG" -s "$PWS_SPACE"
 cf apps
 
 set +e
-cf apps | grep "$PWS_APPNAME-" | grep "$PWS_APP_SUFFIX" | grep "main"| grep green
-if [ $? -eq 0 ]
-then
-  echo "$PWS_APPNAME-green" > ./current-app-info/current-app.txt
-  echo "$PWS_APPNAME-blue" > ./current-app-info/next-app.txt
-else
-  echo "$PWS_APPNAME-blue" > ./current-app-info/current-app.txt
-  echo "$PWS_APPNAME-green" > ./current-app-info/next-app.txt
-fi
-set -xe
-
-echo "Current main app routes to app instance $(cat ./current-app-info/current-app.txt)"
-echo "New version of app to be deployed to instance $(cat ./current-app-info/next-app.txt)"
-
-
-set +e
-main_app_exist=$(cf apps | grep "$PWS_APPNAME-" | grep "main" | wc -l)
+main_app_exist=$(cf apps | grep "canary-" | grep "canary-main" | wc -l)
 main_instance_count=1
 if [ $main_app_exist -eq 1 ]
 then
- main_instance_count=$(cf apps | grep "$PWS_APPNAME-" | grep "main" | awk -F"/" '{print $2} ' |awk '{print $1}')
+ main_instance_count=$(cf apps | grep "canary-" | grep "canary-main" | awk -F"/" '{print $2} ' |awk '{print $1}')
  echo $main_instance_count > ./current-app-info/next-app-instance-count.txt
 fi
 set -xe
