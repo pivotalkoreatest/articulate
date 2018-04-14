@@ -35,7 +35,6 @@ resources:
   source:
     repository: making/m2
 
-
 jobs:
 - name: build-test
   serial: true
@@ -48,7 +47,7 @@ jobs:
     trigger: false
   - get: CVE-check
   - task: build-test
-    file: articulate-ci-demo/ci/tasks/build-test.yml
+    file: demo-out-repo/ci/tasks/build-test.yml
   - put: demo-out-repo
     params:
       repository: out-repo
