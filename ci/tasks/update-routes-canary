@@ -47,6 +47,7 @@ cf unmap-route $MAIN_APP_HOSTNAME $PWS_DOMAIN_NAME --hostname $MAIN_ROUTE_HOSTNA
 cf rename $MAIN_APP_HOSTNAME $MAIN_APP_HOSTNAME-vernarable
 cf rename $STAGING_APP_HOSTNAME $MAIN_APP_HOSTNAME
 fi
+
 echo "Mapping route and rename done."
 cf routes
 cf apps
