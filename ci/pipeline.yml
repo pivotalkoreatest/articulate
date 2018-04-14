@@ -13,6 +13,7 @@ resources:
     branch: test
     uri: git@github.com:myminseok/articulate.git
     private_key: {{github-private-key}}
+    check_every: 10s # for demo
 - name: demo-out-repo
   type: git
   source:
